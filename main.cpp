@@ -4,6 +4,8 @@ Later on, this will also track my exact workouts.
 */
 
 #include <iostream>
+#include <chrono>
+#include <fstream>
 using namespace std; 
 
 // Functions 
@@ -50,10 +52,10 @@ bool didYouWorkout(string prompt, bool& rest){
     cout << prompt << endl;
     cin >> response;
 
-    while(cin.fail()){
+    if(response != 'y' || response != 'Y' || response != 'n' || response != 'N' || response != 'r' || cin.fail()){
         cin.clear();
-        cin.ignore(256,'\n');
-        cout << "Invalid input. Plesse enter 'y'/'Y' or 'n'/'N'" << endl;
+        cin.ignore();
+        cout << "Invalid input. Please enter 'y','n', or 'r'." << endl;
         cin >> response;
     }
 
