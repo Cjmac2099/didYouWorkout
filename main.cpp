@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
 
     // program code
     string currentDate = getCurrentDate();
-    if (currentDate != lastDate && (argc > 1 && strcmp(argv[1], "admin") == 0)) {
+    if (argc > 1 && strcmp(argv[1], "admin") == 0) {
         cout << "Admin login. Lets code some stuff, yessuhhhh. Welcome, take a seat and grab a drink\n" << endl;
         input = false;
     } else if(currentDate != lastDate) { input = false; }
