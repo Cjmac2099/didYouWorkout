@@ -12,17 +12,17 @@ using namespace std;
 // Functions
 bool didYouWorkout(string prompt, bool& rest);
 void writeLogFile(int str, bool restDay);
-void readLogFile(int& str, bool& input, string& lastDate);
+void readLogFile(int& str, string& lastDate);
 string getCurrentDate();
 
 
 int main(int argc, char* argv[]) {
     string lastDate;
     int streak = 0;
-    bool input = false;
+    bool input = true;
 
     // read from file to get tracked data
-    readLogFile(streak, input, lastDate);
+    readLogFile(streak, lastDate);
 
     // program code
     string currentDate = getCurrentDate();
@@ -112,7 +112,7 @@ void writeLogFile(int str, bool restDay) {
     writer << "Last Date: " << getCurrentDate() << endl;
 }
 
-void readLogFile(int& str, bool& input, string& lastDate) {
+void readLogFile(int& str, string& lastDate) {
     ifstream reader("workoutLog.txt");
     if (!reader) {
         cout << "Invalid file name. Check log file." << endl;
@@ -123,8 +123,6 @@ void readLogFile(int& str, bool& input, string& lastDate) {
     while (getline(reader, line)) {
         if (line.find("Streak:") != string::npos) {
             str = stoi(line.substr(line.find(":") + 1));
-        } else if (line.find("Input:") != string::npos) {
-            input = (line.substr(line.find(":") + 1) == "true");
         } else if (line.find("LastDate:") != string::npos) {
             lastDate = line.substr(line.find(":") + 2);
         }
