@@ -11,7 +11,7 @@ using namespace std;
 
 // Functions
 bool didYouWorkout(string prompt, bool& rest);
-void writeLogFile(int str, bool restDay);
+void writeLogFile(int str, bool restDay, string workoutType);
 void readLogFile(int& str, string& lastDate);
 string getCurrentDate();
 
@@ -40,6 +40,7 @@ int main(int argc, char* argv[]) {
         return 0;
     }
 
+    string type = "";
     bool restDay = false;
     bool status = didYouWorkout(prompt, restDay);
 
@@ -50,16 +51,20 @@ int main(int argc, char* argv[]) {
         cout << "\nYESUHHHH\nKEEP IT UP! YOU > EVERYTHING ELSE RAAAAAAA!! LAMBO INCOMING!" << endl;
         streak++;
         input = true;
+
+        cout << "What type of workout did you do? (e.g. back, chest, legs, etc): ";
+        cin >> type;
     } else {
         cout << "\nbruh... Come on, how are we suppose to be eat wings and sip martinis at this rate. LOCK IN!" << endl;
         streak = 0;
         input = true;
     }
 
+
     cout << "Your streak is now " << streak << " days(excluding rest days)." << endl;
 
     // output to file for readability
-    writeLogFile(streak, restDay);
+    writeLogFile(streak, restDay, type);
 
     return 0;
 }
@@ -105,11 +110,12 @@ bool didYouWorkout(string prompt, bool& rest) {
     return false;
 }
 
-void writeLogFile(int str, bool restDay) {
+void writeLogFile(int str, bool restDay, string workoutType) {
     ofstream writer("workoutLog.txt");
     writer << "Streak: " << str << " days" << endl;
     writer << "Rest Day: " << boolalpha << restDay << endl;
     writer << "Last Date: " << getCurrentDate() << endl;
+    writer << "Workout Type: " << workoutType << endl;
 }
 
 void readLogFile(int& str, string& lastDate) {
