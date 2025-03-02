@@ -1,2 +1,3 @@
-Streak:  days
-Rest Day?: 1
+Streak: 1 days
+Rest Day?: false
+LastDate: 2025-03-01
