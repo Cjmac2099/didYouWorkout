@@ -4,6 +4,7 @@ Later on, this will also track my exact workouts.
 */
 
 #include <iostream>
+#include <cstring>
 #include <fstream>
 #include <ctime>
 using namespace std;
@@ -25,9 +26,11 @@ int main(int argc, char* argv[]) {
 
     // program code
     string currentDate = getCurrentDate();
-    if (currentDate != lastDate) {
+    if (currentDate != lastDate && (argc > 1 && strcmp(argv[1], "admin") == 0)) {
+        cout << "Admin login. Lets code some stuff, yessuhhhh. Welcome, take a seat and grab a drink\n" << endl;
         input = false;
-    }
+    } else if(currentDate != lastDate) { input = false; }
+
 
     string prompt = "Hey man! You know the dream; get ripped and make software. A true tech bro's dream.\n"
                     "So for starters, have you worked out today? If today is a rest day enter 'r'(y/n/r): ";
@@ -44,7 +47,7 @@ int main(int argc, char* argv[]) {
         cout << "\nRest day, understandable. Gotta let the body heal and stuff." << endl;
         input = true;
     } else if (status) {
-        cout << "\nYESUHHHH\nKEEP IT UP MAN! COME BACK TOMORROW TO KEEP YOUR STREAK." << endl;
+        cout << "\nYESUHHHH\nKEEP IT UP! YOU > EVERYTHING ELSE RAAAAAAA!! LAMBO INCOMING!" << endl;
         streak++;
         input = true;
     } else {
@@ -105,8 +108,8 @@ bool didYouWorkout(string prompt, bool& rest) {
 void writeLogFile(int str, bool restDay) {
     ofstream writer("workoutLog.txt");
     writer << "Streak: " << str << " days" << endl;
-    writer << "Rest Day?: " << boolalpha << restDay << endl;
-    writer << "LastDate: " << getCurrentDate() << endl;
+    writer << "Rest Day: " << boolalpha << restDay << endl;
+    writer << "Last Date: " << getCurrentDate() << endl;
 }
 
 void readLogFile(int& str, bool& input, string& lastDate) {
