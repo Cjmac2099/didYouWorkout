@@ -10,6 +10,7 @@ using namespace std;
 
 // Functions 
 bool didYouWorkout(string prompt, bool& rest);
+void writeLogFile(bool restDay);
 
 static int streak = 0;
 static bool input;
@@ -20,7 +21,7 @@ int main(int argc, char* argv[]){
                     "So for starters, have you worked out today? If today is a rest day enter 'r'(y/n/r): ";
 
     if(input){
-        cout << "You already inputted for today. Come back tomorrow.\nYour streak is " + streak << " days." << endl;
+        cout << "You already inputted for today. Come back tomorrow.\nYour streak is " << streak + " days." << endl;
         return 0;
     }
 
@@ -42,6 +43,9 @@ int main(int argc, char* argv[]){
 
     cout << "Your streak is now " << streak << " days(excluding rest days)." << endl;
 
+    // ouput to file for readability
+    writeLogFile(restDay);
+
     return 0;
 }
 
@@ -52,7 +56,7 @@ bool didYouWorkout(string prompt, bool& rest){
     cout << prompt << endl;
     cin >> response;
 
-    if(response != 'y' || response != 'Y' || response != 'n' || response != 'N' || response != 'r' || cin.fail()){
+    if(cin.fail()){
         cin.clear();
         cin.ignore();
         cout << "Invalid input. Please enter 'y','n', or 'r'." << endl;
@@ -79,7 +83,15 @@ bool didYouWorkout(string prompt, bool& rest){
             break;
 
         default:
+            cout << "Invalid input. Please enter 'y','n', or 'r'." << endl;
+            return 0;
             break;
     }
     return false;
+}
+
+void writeLogFile(bool restDay){
+    ofstream writer("workoutLog.txt");
+    writer << "Streak: " << streak + " days" << endl;
+    writer << "Rest Day?: " << boolalpha << restDay << endl;
 }

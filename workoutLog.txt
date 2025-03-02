@@ -1,0 +1,2 @@
+Streak:  days
+Rest Day?: 1
